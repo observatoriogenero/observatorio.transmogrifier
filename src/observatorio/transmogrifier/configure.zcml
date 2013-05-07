@@ -1,0 +1,28 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:transmogrifier="http://namespaces.plone.org/transmogrifier"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="observatorio.transmogrifier">
+
+    <includeDependencies package="." />
+
+    <include package="collective.transmogrifier" file="meta.zcml" />
+
+    <genericsetup:registerProfile
+        name="default"
+        title="observatorio.transmogrifier"
+        directory="profiles/default"
+        description="Extension profile for observatorio.transmogrifier."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <transmogrifier:registerConfig
+        name="observatorio.transmogrifier.content"
+        title="Observatorio Base Content"
+        description="Base content of Observatorio intranet"
+        configuration="config/content.cfg"
+        />
+
+
+
+</configure>

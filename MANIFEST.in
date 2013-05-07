@@ -1,0 +1,2 @@
+graft src/observatorio
+include *.cfg *.rst *.in
