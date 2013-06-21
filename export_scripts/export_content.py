@@ -36,9 +36,8 @@ CLASSNAME_TO_SKIP = ['SetupTool', 'SecureMailHost', 'ContentTypeRegistry', 'Site
     'MessageTool', 'PloneboardTool', 'Analytics', 'PageCacheManager','CSCachingPolicyManager',
     'PolicyHTTPCacheManager', 'PolicyHTTPCacheManager', 'RAMCacheManager','PersonalData',
     'SchemaEditorTool', 'ATSETemplateTool', 'AreaTematica', 'Banners', 'EixoAtuacao',
-    'FolderSignupSheets', 'FolderTipoListas', 'HeaderSetFolder', 'MacroFolder', 'Newsletter',
-    'NewsletterBTree', 'NewsletterReference', 'NewsletterRichReference', 'NewsletterTheme',
-    'SERPROSCEquidadeGenerosTool', 'PublicatorTool', 'FolderBanners', 'SyndicationInformation']
+    'FolderSignupSheets', 'FolderTipoListas', 'HeaderSetFolder', 'MacroFolder', 'NewsletterReference', 'Subscriber',
+    'NewsletterRichReference', 'SERPROSCEquidadeGenerosTool', 'PublicatorTool', 'FolderBanners', 'SyndicationInformation']
     
 ID_TO_SKIP = ['Members', ]
 
@@ -418,6 +417,7 @@ class ArquivoWrapper(BaseWrapper):
         self['__datafields__'].append('_datafield_file')
         data = str(obj.data)
         self['_datafield_file'] = data
+        self['filename'] = obj.getFilename()
         self['eixo'] = obj.eixo
         self['area'] = obj.area
 
@@ -429,6 +429,14 @@ class ImageWrapper(BaseWrapper):
         self['__datafields__'].append('_datafield_image')
         data = str(obj.data)
         self['_datafield_image'] = data
+        self['filename'] = obj.getFilename()
+
+
+class NewsletterWrapper(BaseWrapper):
+
+    def __init__(self, obj):
+        super(NewsletterWrapper, self).__init__(obj)
+        self['text'] = obj.renderTextHTML()
 
 
 class EventoWrapper(BaseWrapper):
@@ -468,6 +476,9 @@ CLASSNAME_TO_WAPPER_MAP = {
     'ATSelectionCriterion':     ATPortalTypeCriterionWrapper,
     'ATPathCriterion':          ATPathCriterionWrapper,
     'ATImage':                  ImageWrapper,
+    'Newsletter':               NewsletterWrapper,
+    'NewsletterBTree':          BaseWrapper,
+    'NewsletterTheme':          BaseWrapper,
 
     # conteudos SERPRO
     'Pagina':                   PaginaWrapper,
