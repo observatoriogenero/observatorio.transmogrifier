@@ -436,7 +436,7 @@ class NewsletterWrapper(BaseWrapper):
 
     def __init__(self, obj):
         super(NewsletterWrapper, self).__init__(obj)
-        self['text'] = obj.renderTextHTML()
+        self['text'] = obj.renderTextHTML().decode(self.charset, 'ignore')
 
 
 class EventoWrapper(BaseWrapper):
